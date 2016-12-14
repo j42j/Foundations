@@ -8,15 +8,15 @@ class Card():
 
     ranks = range(1, 14)
     suits = ('Hearts', 'Spades', 'Diamonds', 'Clubs')
+    pretty_rank = {x: y for x, y in zip(list(ranks),
+                   ["Ace", *list(range(2,11)), "Jack", "Queen", "King"])}
 
     def __init__(self, suit, rank):
         self.suit = suit
         self.rank = rank
 
     def get_pretty_rank(self):
-        pretty_rank = {x: y for x, y in zip(list(self.ranks),
-                       ["Ace", *list(range(2,11)), "Jack", "Queen", "King"])}
-        return str(pretty_rank[self.rank])
+        return str(self.pretty_rank[self.rank])
 
     def __repr__(self):
         return self.get_pretty_rank() +  ' of ' + self.suit
@@ -28,7 +28,7 @@ class Card():
 
         if 1 < self.rank <= 10:
             return [self.rank]
-        elif (self.rank > 10):
+        elif self.rank > 10:
             return [10]
 
         return [1, 11]
@@ -113,6 +113,7 @@ def main():
                 p_hand.add_card(c)
                 p_points = p_hand.get_points()
                 print("You drew ", c)
+                print("Your hand is ", p_hand)
 
         if p_points > 21:
             print("You went bust! You lose.")
